@@ -21,6 +21,4 @@ app.AddRootEndpoints();
 
 app.AddArmorEndpoints();
 
-
-
 app.Run();
