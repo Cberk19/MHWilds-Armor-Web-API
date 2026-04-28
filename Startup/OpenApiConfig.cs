@@ -11,7 +11,7 @@ namespace MHWilds_Armor_Web_API.Startup
 
         public static void UseOpenApi(this WebApplication app)
         {
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
             {
                 app.MapOpenApi();
                 app.MapScalarApiReference(options =>
