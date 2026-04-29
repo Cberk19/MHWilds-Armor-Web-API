@@ -6,8 +6,8 @@ namespace MHWilds_Armor_Web_API.Data
     public class ArmorData
     {
         //private static readonly string connectionString = "mongodb+srv://db_user1:FortniteBooty697!@testcluster.zco1x3w.mongodb.net/";
-        private static readonly string? connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING" 
-            ?? throw new InvalidOperationException("CONNECTION_STRING is not set"));
+        private static readonly string? connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+            ?? "CONNECTION_STRING is not set";
 
         public ArmorData()
         {
@@ -15,6 +15,7 @@ namespace MHWilds_Armor_Web_API.Data
         }
         public static List<Armor> GetHelmets()
         {
+            
             List<Armor> armorList = new List<Armor>();
             try
             {
@@ -70,10 +71,10 @@ namespace MHWilds_Armor_Web_API.Data
             return armorList;
         }
 
-        public static List<Armor> GetArmor()
+        public static string GetArmor()
         {
             List<Armor> armorList = new List<Armor>();
-            try
+            /*try
             {
                 armorList.AddRange(GetHelmets());
                 armorList.AddRange(GetTorsos());
@@ -82,7 +83,9 @@ namespace MHWilds_Armor_Web_API.Data
             {
                 Console.WriteLine(e.Message);
             }
-            return armorList;
+            */
+            
+            return connectionString;
         }
 
         public static List<Armor> GetHelmetsBySkill(Skill skill)
