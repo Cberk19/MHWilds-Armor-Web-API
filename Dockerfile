@@ -12,4 +12,6 @@ RUN dotnet publish "MHWilds Armor Web API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+ENV ASPNETCORE_hostBuilder__reloadConfigOnChange=false
 ENTRYPOINT ["dotnet", "MHWilds Armor Web API.dll"]
