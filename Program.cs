@@ -17,8 +17,6 @@ var app = builder.Build();
 
 app.UseOpenApi();
 
-app.UseHttpsRedirection();
-
 app.AddRootEndpoints();
 
 app.AddArmorEndpoints();
