@@ -4,13 +4,13 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["MHWildsArmorWebAPI/MHWildsArmorWebAPI.csproj", "MHWildsArmorWebAPI/"]
-RUN dotnet restore "MHWildsArmorWebAPI/MHWildsArmorWebAPI.csproj"
+COPY ["MHWilds-Armor-Web-API/MHWilds Armor Web API.csproj", "MHWilds-Armor-Web-API/"]
+RUN dotnet restore "MHWilds-Armor-Web-API/MHWilds Armor Web API.csproj"
 COPY . .
-WORKDIR "/src/MHWildsArmorWebAPI"
-RUN dotnet publish "MHWildsArmorWebAPI.csproj" -c Release -o /app/publish
+WORKDIR "/src/MHWilds-Armor-Web-API"
+RUN dotnet publish "MHWilds Armor Web API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "MHWildsArmorWebAPI.dll"]
+ENTRYPOINT ["dotnet", "MHWilds Armor Web API.dll"]
