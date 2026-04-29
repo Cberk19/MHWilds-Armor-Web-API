@@ -9,6 +9,8 @@ if (builder.Environment.IsDevelopment())
     DotNetEnv.Env.Load();
 }
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+
 builder.AddDependencies();
 
 var app = builder.Build();
@@ -21,4 +23,9 @@ app.AddRootEndpoints();
 
 app.AddArmorEndpoints();
 
-app.Run();
+if(builder.Environment.IsDevelopment())
+    app.Run();
+else
+{
+    app.Run($"http://0.0.0.0:{port}");
+}
