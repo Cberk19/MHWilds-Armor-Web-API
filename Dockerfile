@@ -12,4 +12,4 @@ RUN dotnet publish "MHWilds Armor Web API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "MHWilds_Armor_Web_API.dll"]
+ENTRYPOINT ["dotnet", "MHWilds Armor Web API.dll"]
