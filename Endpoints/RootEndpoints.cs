@@ -6,7 +6,7 @@
         {
             app.MapGet("/", () =>
             {
-                Results.Redirect("https://api.mhwildsarmorapi.com/scalar");  
+                return Results.Redirect("https://api.mhwildsarmorapi.com/scalar");  
             }
             );
         }
