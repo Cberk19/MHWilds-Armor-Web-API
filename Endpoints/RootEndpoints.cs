@@ -4,7 +4,11 @@
     {
         public static void AddRootEndpoints(this WebApplication app)
         {
-            app.MapGet("/", () => "Hello World");
+            app.MapGet("/", () =>
+            {
+                Results.Redirect("/scalar");  
+            }
+            );
         }
     }
 }
