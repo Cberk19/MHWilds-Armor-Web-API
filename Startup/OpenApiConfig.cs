@@ -1,4 +1,5 @@
-﻿using Scalar.AspNetCore;
+﻿using Microsoft.OpenApi;
+using Scalar.AspNetCore;
 
 namespace MHWilds_Armor_Web_API.Startup
 {
@@ -6,7 +7,17 @@ namespace MHWilds_Armor_Web_API.Startup
     {
         public static void AddOpenApiServices(this IServiceCollection services)
         {
-            services.AddOpenApi();
+            services.AddOpenApi(options =>
+            {
+                options.AddDocumentTransformer((document, context, cancellationToken) =>
+                {
+                    document.Servers = new List<OpenApiServer>
+                    {
+                        new OpenApiServer { Url = "https://api.mhwildsarmorapi.com" }
+                    };
+                    return Task.CompletedTask;
+                });
+            });
         }
 
         public static void UseOpenApi(this WebApplication app)
