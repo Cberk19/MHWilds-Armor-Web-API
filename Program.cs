@@ -21,6 +21,7 @@ app.AddRootEndpoints();
 
 app.AddArmorEndpoints();
 
+
 if(builder.Environment.IsDevelopment())
     app.Run();
 else
