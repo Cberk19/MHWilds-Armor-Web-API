@@ -70,6 +70,35 @@ namespace MHWilds_Armor_Web_API.Data
             return armorList;
         }
 
+        public static List<Armor> GetArms()
+        {
+            List<Armor> armorList = new List<Armor>();
+            try
+            {
+                var client = new MongoClient(connectionString);
+                var database = client.GetDatabase("Armor");
+                var collection = database.GetCollection<Armor>("arms");
+
+                var filter = Builders<Armor>.Filter.Empty;
+
+
+
+                using (var jawn = collection.Find<Armor>(filter).ToCursor())
+                {
+                    foreach (var item in jawn.ToEnumerable())
+                    {
+                        armorList.Add(item);
+                        Console.WriteLine(item);
+                    }
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return armorList;
+        }
+
         public static List<Armor> GetArmor()
         {
             List<Armor> armorList = new List<Armor>();
@@ -77,6 +106,7 @@ namespace MHWilds_Armor_Web_API.Data
             {
                 armorList.AddRange(GetHelmets());
                 armorList.AddRange(GetTorsos());
+                armorList.AddRange(GetArms());
             }
             catch (HttpRequestException e)
             {
@@ -137,6 +167,32 @@ namespace MHWilds_Armor_Web_API.Data
             return armorList;
         }
 
+        public static List<Armor> GetArmsBySkill(Skill skill)
+        {
+            List<Armor> armorList = new List<Armor>();
+            try
+            {
+                var client = new MongoClient(connectionString);
+                var database = client.GetDatabase("Armor");
+                var collection = database.GetCollection<Armor>("arms");
+
+                var filter = Builders<Armor>.Filter.Eq("skills.name", skill.name);
+
+                using (var jawn = collection.Find<Armor>(filter).ToCursor())
+                {
+                    foreach (var item in jawn.ToEnumerable())
+                    {
+                        armorList.Add(item);
+                    }
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return armorList;
+        }
+
         public static List<Armor> GetArmorBySkill(Skill skill)
         {
             List<Armor> armorList = new List<Armor>();
@@ -144,6 +200,7 @@ namespace MHWilds_Armor_Web_API.Data
             {
                 armorList.AddRange(GetHelmetsBySkill(skill));
                 armorList.AddRange(GetTorsosBySkill(skill));
+                armorList.AddRange(GetArmsBySkill(skill));
             }
             catch (HttpRequestException e)
             {

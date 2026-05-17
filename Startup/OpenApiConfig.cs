@@ -1,5 +1,6 @@
 ﻿using Microsoft.OpenApi;
 using Scalar.AspNetCore;
+using System.Runtime.CompilerServices;
 
 namespace MHWilds_Armor_Web_API.Startup
 {
@@ -7,6 +8,12 @@ namespace MHWilds_Armor_Web_API.Startup
     {
         public static void AddOpenApiServices(this IServiceCollection services)
         {
+            //Comment/uncomment accordingly when working on development vs when pushing to production
+            
+            //Development
+            //services.AddOpenApi();
+
+            //Production
             services.AddOpenApi(options =>
             {
                 options.AddDocumentTransformer((document, context, cancellationToken) =>
@@ -22,15 +29,12 @@ namespace MHWilds_Armor_Web_API.Startup
 
         public static void UseOpenApi(this WebApplication app)
         {
-            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+            app.MapOpenApi();
+            app.MapScalarApiReference(options =>
             {
-                app.MapOpenApi();
-                app.MapScalarApiReference(options =>
-                {
-                    options.Title = "Monster Hunter Armor API";
-                    options.HideClientButton = true;
-                });
-            }
+                options.Title = "Monster Hunter Armor API";
+                options.HideClientButton = true;
+            });
         }
     }
 }

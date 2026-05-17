@@ -19,6 +19,11 @@ namespace MHWilds_Armor_Web_API.Endpoints
                 return Data.ArmorData.GetTorsos();
             });
 
+            app.MapGet("/getArms", (ArmorData data) =>
+            {
+                return Data.ArmorData.GetArms();
+            });
+
             app.MapGet("/getArmor", (ArmorData data) =>
             {
                 return Data.ArmorData.GetArmor();
@@ -36,6 +41,13 @@ namespace MHWilds_Armor_Web_API.Endpoints
                 Skill temp = new Skill();
                 temp.name = skill;
                 return Data.ArmorData.GetTorsosBySkill(temp);
+            });
+
+            app.MapGet("/getArmsBySkill{skill}", ([FromRoute] string skill, ArmorData data) =>
+            {
+                Skill temp = new Skill();
+                temp.name = skill;
+                return Data.ArmorData.GetArmsBySkill(temp);
             });
 
             app.MapGet("/getArmorBySkill{skill}", ([FromRoute] string skill, ArmorData data) =>
